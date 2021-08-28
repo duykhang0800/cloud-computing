@@ -1,0 +1,32 @@
+.Modal {
+    z-index: 10;
+    text-align: center;
+    margin: 0px 24px;
+}
+
+.login-page {
+    overflow: hidden;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    z-index: 0;
+    background-color: #4d79ff;
+}
+
+.particles-container {
+    overflow: hidden;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    z-index: 0;
+}
+.particles-container canvas {
+    transition: 0.2s all ease-in-out;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+}
