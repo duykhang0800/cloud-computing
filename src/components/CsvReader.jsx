@@ -195,6 +195,7 @@ function CsvReader() {
                 columns={columns}
                 data={data}
                 customStyles={customStyles}
+                selectableRows
             />
         </div>
     );

@@ -9,6 +9,21 @@ const style = {
     zIndex: 2
 }
 
+const chartData = [
+    {
+        x: 10,
+        y: 20
+    },
+    {
+        x: 5,
+        y: 1
+    },
+    {
+        x: 15,
+        y: 15
+    }
+]
+
 export default class PieChart extends React.Component {
 
     constructor(props) {
@@ -42,7 +57,8 @@ export default class PieChart extends React.Component {
                         'rgba(153, 102, 255, 1)',
                         'rgba(255, 159, 64, 1)'
                     ],
-                    borderWidth: 1
+                    borderWidth: 1,
+                    parsing: false
                 }]
             },
             options: {

@@ -35,7 +35,7 @@ function App() {
     <Router>
       <div>
         {/* This part of code is for the main page, uncomment it and comment out the active code below to view it */}
-        {/* <div>
+        <div>
           <Navbar />
         </div>
         <div class="row" style={body}>
@@ -48,15 +48,15 @@ function App() {
         </div>
         <div class="row" style={body}>
             <CsvReader />
-        </div> */}
+        </div>
 
         {/* This part of code is for log in and sign up */}
-        <Login />
+        {/* <Login />
         <Switch>
           <Route exact path='/' component={Login} />
           <Route exact path='/signup' component={Signup} />
           <Route exact path='/login' component={Login}/>
-        </Switch>
+        </Switch> */}
       </div>
     </Router>
 
