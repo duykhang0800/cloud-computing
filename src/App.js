@@ -39,14 +39,13 @@ function App() {
           <Navbar />
         </div>
         <div class="row" style={body}>
-          <div class='column'>
-            <PieChart />
-          </div>
-          <div class="column">
+          
             <BarChart />
-          </div>
         </div>
         <div class="row" style={body}>
+          <PieChart/>
+        </div>
+        <div class="row">
             <CsvReader />
         </div>
 

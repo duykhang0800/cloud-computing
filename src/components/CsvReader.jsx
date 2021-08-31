@@ -3,6 +3,7 @@ import * as XLSX from 'xlsx';
 import DataTable, { createTheme } from 'react-data-table-component';
 import file from '../project.csv';
 import { readString } from 'react-papaparse';
+import SortIcon from "@material-ui/icons/ArrowDownward";
 
 var json = {
     one: [11, 12, 13, 14, 15],
@@ -67,80 +68,111 @@ const customStyles = {
     },
     headRow: {
         style: {
-          backgroundColor: 'aqua',
-          minHeight: '56px',
-          borderBottomWidth: '1px',
-          borderBottomColor: 'yellow',
-          borderBottomStyle: 'solid',
+            backgroundColor: 'aqua',
+            minHeight: '56px',
+            borderBottomWidth: '1px',
+            borderBottomColor: 'yellow',
+            borderBottomStyle: 'solid',
         },
         denseStyle: {
-          minHeight: '32px',
+            minHeight: '32px',
         },
-      },
+    },
 };
+
+const data = [
+    { 
+        id: 1, 
+        title: 'Conan the Barbarian', 
+        year: '1982' 
+    },
+    {
+        id: 2,
+        title: 'The Lords of the Rings',
+        year: '1986'
+    },
+    {
+        id: 3,
+        title: 'Stars War',
+        year: '1977'
+    }
+];
+const columns = [
+    {
+        name: 'Title',
+        selector: 'title',
+        sortable: true,
+    },
+    {
+        name: 'Year',
+        selector: 'year',
+        sortable: true,
+        right: true,
+    },
+];
 
 function CsvReader() {
 
-    const [columns, setColumns] = useState([]);
-    const [data, setData] = useState([]);
+    // const [columns, setColumns] = useState([]);
+    // const [data, setData] = useState([]);
 
     // process CSV data
-    const processData = dataString => {
-        const dataStringLines = dataString.split(/\r\n|\n/);
-        const headers = dataStringLines[0].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
+    // const processData = dataString => {
+    //     const dataStringLines = dataString.split(/\r\n|\n/);
+    //     const headers = dataStringLines[0].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
 
-        const list = [];
-        for (let i = 1; i < dataStringLines.length; i++) {
-            const row = dataStringLines[i].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
-            if (headers && row.length == headers.length) {
-                const obj = {};
-                for (let j = 0; j < headers.length; j++) {
-                    let d = row[j];
-                    if (d.length > 0) {
-                        if (d[0] == '"')
-                            d = d.substring(1, d.length - 1);
-                        if (d[d.length - 1] == '"')
-                            d = d.substring(d.length - 2, 1);
-                    }
-                    if (headers[j]) {
-                        obj[headers[j]] = d;
-                    }
-                }
+    //     const list = [];
+    //     for (let i = 1; i < dataStringLines.length; i++) {
+    //         const row = dataStringLines[i].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
+    //         if (headers && row.length == headers.length) {
+    //             const obj = {};
+    //             for (let j = 0; j < headers.length; j++) {
+    //                 let d = row[j];
+    //                 if (d.length > 0) {
+    //                     if (d[0] == '"')
+    //                         d = d.substring(1, d.length - 1);
+    //                     if (d[d.length - 1] == '"')
+    //                         d = d.substring(d.length - 2, 1);
+    //                 }
+    //                 if (headers[j]) {
+    //                     obj[headers[j]] = d;
+    //                 }
+    //             }
 
-                // remove the blank rows
-                if (Object.values(obj).filter(x => x).length > 0) {
-                    list.push(obj);
-                }
-            }
-        }
+    //             // remove the blank rows
+    //             if (Object.values(obj).filter(x => x).length > 0) {
+    //                 list.push(obj);
+    //             }
+    //         }
+    //     }
 
-        // prepare columns list from headers
-        const columns = headers.map(c => ({
-            name: c,
-            selector: c,
-        }));
+    //     // prepare columns list from headers
+    //     const columns = headers.map(c => ({
+    //         name: c,
+    //         selector: c,
+    //     }));
 
-        setData(list);
-        setColumns(columns);
-    }
+    //     setData(list);
+    //     setColumns(columns);
+    // }
 
     // handle file upload
-    const handleFileUpload = e => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-            /* Parse data */
-            const bstr = evt.target.result;
-            const wb = XLSX.read(bstr, { type: 'binary' });
-            /* Get first worksheet */
-            const wsname = wb.SheetNames[0];
-            const ws = wb.Sheets[wsname];
-            /* Convert array of arrays */
-            const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
-            processData(data);
-        };
-        reader.readAsBinaryString(file);
-    }
+    // const handleFileUpload = e => {
+    //     const file = e.target.files[0];
+    //     const reader = new FileReader();
+    //     reader.onload = (evt) => {
+    //         /* Parse data */
+    //         const bstr = evt.target.result;
+    //         const wb = XLSX.read(bstr, { type: 'binary' });
+    //         /* Get first worksheet */
+    //         const wsname = wb.SheetNames[0];
+    //         const ws = wb.Sheets[wsname];
+    //         /* Convert array of arrays */
+    //         const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
+    //         processData(data);
+    //     };
+    //     reader.readAsBinaryString(file);
+    // }
 
     // useEffect(() => {
     //     console.log("Component called");
@@ -181,21 +213,29 @@ function CsvReader() {
     //     //  }
     // })
 
+    const handleChange = (selectedRows) => {
+        console.log(selectedRows)
+    }
+
     return (
         <div>
             <h3>Read CSV file in React - <a href="https://www.cluemediator.com" target="_blank" rel="noopener noreferrer">Clue Mediator</a></h3>
-            <input
+            {/* <input
                 type="file"
                 accept=".csv,.xlsx,.xls"
                 onChange={handleFileUpload}
-            />
+            /> */}
             <DataTable
                 pagination
                 highlightOnHover
                 columns={columns}
                 data={data}
-                customStyles={customStyles}
+                defaultSortField="title"
+                sortIcon={<SortIcon/>}
+                // customStyles={customStyles}
                 selectableRows
+                // onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
+                onSelectedRowsChange={handleChange}
             />
         </div>
     );
