@@ -1,12 +1,11 @@
 import React from 'react'
 import Chart from 'chart.js/auto';
 import '../css/Home.css'
+import '../css/Cards.css'
 
 const style = {
     width: "50%",
-    height: "400px",
-    border: "5px solid black",
-    backgroundColor: "white",
+    backgroundColor: "grey",
     zIndex: 2
 }
 
@@ -155,11 +154,27 @@ export default class BarChart extends React.Component {
         return (
             <div class="container-fluid" style={style}>
                 <div class="column">
-                    <canvas id="barChart1" width="400px" height="400px"></canvas>
+                    <div class="cards-list">
+                        <div class="card 1">
+                            <div class="card-image">
+                                <canvas id="barChart1" width="400px" height="400px"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="column">
-                    <canvas id="barChart2" width="400px" height="400px"></canvas>
+
+                    <div class="cards-list">
+                        <div class="card 1">
+                            <div class="card-image">
+                                <canvas id="barChart2" width="400px" height="400px"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
             </div>
         )
     }
