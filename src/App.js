@@ -8,6 +8,7 @@ import './css/Home.css';
 import Login from './components/Login'
 import Signup from './components/Signup';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import HomePage from './components/HomePage';
 
 const body = {
   backgroundColor: "grey",
@@ -16,26 +17,10 @@ const body = {
 
 function App() {
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-logo" alt="logo" />
-    //     <p>
-    //       Edit <code>src/App.js</code> and save to reload.
-    //     </p>
-    //     <a
-    //       className="App-link"
-    //       href="https://reactjs.org"
-    //       target="_blank"
-    //       rel="noopener noreferrer"
-    //     >
-    //       Learn React
-    //     </a>
-    //   </header>
-    // </div>
     <Router>
       <div>
         {/* This part of code is for the main page, uncomment it and comment out the active code below to view it */}
-        <div>
+        {/* <div>
           <Navbar />
         </div>
         <div class="row" style={body}>
@@ -47,7 +32,9 @@ function App() {
         </div>
         <div class="row">
             <CsvReader />
-        </div>
+        </div> */}
+
+        <HomePage/>
 
         {/* This part of code is for log in and sign up */}
         {/* <Login />

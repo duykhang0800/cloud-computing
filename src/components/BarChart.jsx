@@ -5,7 +5,7 @@ import '../css/Cards.css'
 
 const style = {
     width: "50%",
-    backgroundColor: "grey",
+    // backgroundColor: "grey",
     zIndex: 2
 }
 

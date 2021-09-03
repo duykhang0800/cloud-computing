@@ -1,6 +1,7 @@
 import React from 'react'
 import Chart from 'chart.js/auto';
 import '../css/Cards.css'
+import '../css/Home.css'
 
 const style = {
     width: "400px",
@@ -76,10 +77,16 @@ export default class PieChart extends React.Component {
     render() {
         return (
             <div class="container-fluid">
-                <div class="cards-list">
-                    <div class="card 1">
-                        <div class="card-image">
-                        <canvas id="pieChart" width="400px" height="400px"></canvas>
+                <div class="column">
+                    <a href="http://" target="_blank" rel="noopener noreferrer">Description:</a>
+                    <p>This is a Pie Chart, supposedly</p>
+                </div>
+                <div class="column">
+                    <div class="cards-list">
+                        <div class="card 1">
+                            <div class="card-image">
+                                <canvas id="pieChart" width="400px" height="400px"></canvas>
+                            </div>
                         </div>
                     </div>
                 </div>
