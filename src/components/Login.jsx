@@ -1,7 +1,7 @@
 import React from "react";
 import Particles from "react-particles-js";
 import particlesConfig from "../assets/particlesConfig.json";
-import '../css/Login.css'
+import '../css/Login.css';
 import { Link } from 'react-router-dom';
 
 function Login() {
@@ -27,7 +27,11 @@ function Login() {
                                         <div class="input-group-append"></div>
                                     </div>
                                 </div>
-                                <div class="form-group"><button class="btn btn-primary btn-lg text-white" style={{ width: '100%' }} type="button">Log in</button></div>
+                                <div class="form-group">
+                                    <Link to={'/home'}>
+                                        <button class="btn btn-primary btn-lg text-white" style={{ width: '100%' }} type="button">Log in</button>
+                                    </Link>
+                                </div>
                             </form>
                             <hr style={{ backgroundColor: '#bababa' }} />
                             <p class="text-center">Or&nbsp;<a class="text-decoration-none" href="#">Forget password</a></p>

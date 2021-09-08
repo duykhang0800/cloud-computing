@@ -5,8 +5,9 @@ import PieChart from './components/PieChart.jsx';
 import BarChart from './components/BarChart.jsx';
 import Navbar from './components/Navbar.jsx'
 import './css/Home.css';
-import Login from './components/Login'
+import Login from './components/Login';
 import Signup from './components/Signup';
+import SideNav from './components/SideNav'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import HomePage from './components/HomePage';
 
@@ -34,15 +35,16 @@ function App() {
             <CsvReader />
         </div> */}
 
-        <HomePage/>
+        {/* <HomePage/> */}
 
         {/* This part of code is for log in and sign up */}
-        {/* <Login />
+        <Login />
         <Switch>
           <Route exact path='/' component={Login} />
           <Route exact path='/signup' component={Signup} />
           <Route exact path='/login' component={Login}/>
-        </Switch> */}
+          <Route exact path='/home' component={HomePage}/>
+        </Switch>
       </div>
     </Router>
 

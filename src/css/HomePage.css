@@ -27,7 +27,7 @@
   /*   border: 5px solid #000000; */
   }
   .fs {
-    z-index: 6;
+    z-index: 7;
     background-image: url('../images/theater.jpg');
     background-size: cover;
     background-position: center;
@@ -36,7 +36,7 @@
 
   .ss {
     background-color: yellow;
-    z-index: 5;
+    z-index: 6;
     /* background: url("https://images.pexels.com/photos/931018/pexels-photo-931018.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"); */
     background: linear-gradient(to bottom right, rgba(131,58,180,1) 37%, rgba(253,29,29,1) 100%, rgba(252,176,69,1) 100%);
     background-size: cover;
@@ -71,7 +71,7 @@
     color: #00ace6;
   }
   .fr {
-    background-color: red;
+    background-color: lightblue;
     z-index: 2;
     /* background: url("https://images.pexels.com/photos/6775273/pexels-photo-6775273.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"); */
     background-size: cover;
