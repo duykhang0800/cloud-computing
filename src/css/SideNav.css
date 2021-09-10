@@ -6,14 +6,16 @@
   box-sizing: border-box;
 } */
 
-body {
+ body {
   height: 600px;
+  background-color: #fff;
 }
 
 .side-nav {
   position: relative;
   top: 0;
   left: 0;
+  height: 100px;
 }
 .side-nav-list {
   position: relative;
@@ -24,7 +26,7 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
-  background-color: #010101;
+  background-color: #100901;
   padding: 100px 15px 0;
   transition: all 0.4s linear;
 }
@@ -87,4 +89,14 @@ body {
 
 .slide-in {
   left: 0;
+} 
+
+.nav-link {
+  color: white;
+}
+
+.nav-link:active,
+.nav-link:focus,
+.nav-link:hover {
+  background-color: #ffffff26;
 }

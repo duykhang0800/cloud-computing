@@ -1,11 +1,12 @@
 import React from 'react'
 import '../css/SideNav.css'
+import { Icon } from '@iconify/react';
 
 
 var content = {
     width: '100px',
     zIndex: 100,
-    position: 'fixed'
+    position: 'fixed',
 }
 export default class SideNav extends React.Component {
 
@@ -26,17 +27,17 @@ export default class SideNav extends React.Component {
                         <span class="bar"></span>
                     </div>
                     <ul class="side-nav-list">
-                        <li class="side-nav-item">
-                            <a class="side-nav-link" href="">Hamburger?</a>
+                        <li href="#" class="nav-link">
+                            <Icon icon="bx:bxs-dashboard" />
+                            <span class="mx-2">Home</span>
                         </li>
-                        <li class="side-nav-item">
-                            <a class="side-nav-link" href="">Hamburger!</a>
+                        <li href="#" class="nav-link">
+                            <Icon icon="bx:bx-user-check" />
+                            <span class="mx-2">Profile</span>
                         </li>
-                        <li class="side-nav-item">
-                            <a class="side-nav-link" href="">About</a>
-                        </li>
-                        <li class="side-nav-item">
-                            <a class="side-nav-link" href="">Contact</a>
+                        <li href="#" class="nav-link">
+                            <Icon icon="bx:bx-conversation" />
+                            <span class="mx-2">Contact</span>
                         </li>
                     </ul>
                 </nav>

@@ -31,7 +31,8 @@ export default class BarChart extends React.Component {
         this.state = {
             newLabels: [],
             newData: [],
-            cinemaId: []
+            cinemaId: [],
+            provisional: []
         }
     }
 
