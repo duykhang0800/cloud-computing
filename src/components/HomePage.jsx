@@ -3,6 +3,8 @@ import PieChart from '../components/PieChart';
 import BarChart from '../components/BarChart';
 import CsvReader from '../components/CsvReader';
 import SideNav from '../components/SideNav';
+import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import '../css/HomePage.css';
 
 const fetchUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/records"
@@ -73,11 +75,42 @@ export default class HomePage extends React.Component {
     //     }
     // }
 
+    componentDidMount() {
+        window.addEventListener('scroll', this.handleScroll);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll() {
+        var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        var scrolled = (winScroll / height) * 100;
+        document.getElementById("myBar").style.width = scrolled + "%";
+    }
+
+    logOut() {
+        console.log("Clicked");
+        return <Redirect to="/"></Redirect>
+    }
+
     render() {
         // this.onFocusFunction()
         return (
             <div>
-                <SideNav/>
+                <div class="header">
+                    <h2>RMIT (Remember to fcking put a logo here)
+                        <Link to={'/login'}>
+                            <button class="btn btn-light" id="btn" onClick={this.logOut}>Log out</button>
+                        </Link>
+                    </h2>
+
+                    <div class="progress-container">
+                        <div class="progress-bar" id="myBar"></div>
+                    </div>
+                </div>
+                <SideNav />
                 <div class="page fs">
                     <a href="" target="_blank" rel="noopener noreferrer">Movie Theater CRM</a>
                     <p><i class="arrow down"></i></p>
