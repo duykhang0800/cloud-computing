@@ -1,14 +1,13 @@
-// Custome theme code
-import baguetteBox from 'baguettebox.js'
-const $ = window.$
-
-if ($('.clean-gallery').length > 0) {
-   baguetteBox.run('.clean-gallery', { animation: 'slideIn'});
+export const lightTheme = {
+    body: '#E2E2E2',
+    text: '#363537',
+    toggleBorder: '#FFF',
+    gradient: 'linear-gradient(#39598A, #79D7ED)',
 }
 
-if ($('.clean-product').length > 0) {
-    $(window).on("load",function() {
-        $('.sp-wrap').smoothproducts();
-    });
+export const darkTheme = {
+    body: '#363537',
+    text: '#FAFAFA',
+    toggleBorder: '#6B8096',
+    gradient: 'linear-gradient(#091236, #1E215D)',
 }
-

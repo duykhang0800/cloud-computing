@@ -10,6 +10,7 @@ import Signup from './components/Signup';
 import SideNav from './components/SideNav'
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import HomePage from './components/HomePage';
+import AddNew from './components/AddNew';
 
 const body = {
   backgroundColor: "grey",
@@ -44,6 +45,7 @@ function App() {
           <Route exact path='/signup' component={Signup} />
           <Route exact path='/login' component={Login}/>
           <Route exact path='/home' component={HomePage}/>
+          <Route exact path='/create' component={AddNew}/>
         </Switch>
       </div>
     </Router>

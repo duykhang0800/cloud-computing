@@ -30,34 +30,92 @@ export default class PieChart extends React.Component {
 
     constructor(props) {
         super(props)
+
+        this.state = {
+            labels: [],
+            cinemaId: [],
+            dataSet1: [],
+            dataSet2: []
+        }
     }
 
+    async fectchCinema() {
+        const cinemaUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/cinemas"
+        await fetch(cinemaUrl)
+            .then(res => res.json())
+            .then(data => {
+                var labels = data.map(function (e) {
+                    return e.name;
+                });
 
-    componentDidMount() {
+                var id = data.map(function (e) {
+                    return e.cid;
+                });
+
+                this.setState({ labels: labels, cinemaId: id });
+                console.log(this.state.labels);
+                console.log(this.state.cinemaId)
+            })
+        this.fetchRecords();
+    }
+
+    async fetchRecords() {
+        var idArray = this.state.cinemaId;
+        const tickets1 = [];
+        const tickets2 = [];
+        var total1 = 0;
+        var total2 = 0;
+        console.log(idArray);
+        const recordUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/records";
+        await fetch(recordUrl)
+            .then(res => res.json())
+            .then(json => {
+                json.filter(d => {
+                    if (d.cinema.cid === idArray[0]) {
+                        tickets1.push(d.ticketSold);
+                    } else {
+                        if (d.cinema.cid === idArray[1]) {
+                            tickets2.push(d.ticketSold);
+                        }
+                    }
+                })
+
+                // console.log(tickets1);
+                // console.log(tickets2);
+
+                for (let i = 0; i < tickets1.length; i++) {
+                    total1 += tickets1[i];
+                }
+
+                for (let j = 0; j < tickets2.length; j++) {
+                    total2 += tickets2[j];
+                }
+
+                this.setState({ dataSet1: total1, dataSet2: total2 });
+                console.log(this.state.dataSet1);
+                console.log(this.state.dataSet2);
+            })
+        this.createChart();
+    }
+
+    createChart() {
         // var Chart = require('chart.js');
         var ctx = document.getElementById('pieChart');
+        // console.log("These are the labels: ", this.state.labels);
         var myChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: ['Total tickets for Galaxy Nguyen Trai', 'Total tickets for Galaxy Nguyen Du'],
                 datasets: [{
                     label: 'Number of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    data: [this.state.dataSet1, this.state.dataSet2],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
                     ],
                     borderWidth: 1,
                     parsing: false
@@ -72,6 +130,11 @@ export default class PieChart extends React.Component {
                 radius: '40%'
             }
         });
+    }
+
+
+    componentDidMount() {
+        this.fectchCinema();
     }
 
     render() {

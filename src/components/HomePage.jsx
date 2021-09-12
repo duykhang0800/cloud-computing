@@ -6,15 +6,24 @@ import SideNav from '../components/SideNav';
 import { Redirect } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../css/HomePage.css';
+import { lightTheme, darkTheme } from '../js/theme';
+import { GlobalStyles } from '../js/global';
+import { ThemeProvider } from "styled-components";
 
 const fetchUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/records"
+
+const button = {
+    zIndex: 200,
+    right: '120px',
+    top: '10px'
+}
 
 export default class HomePage extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            isShown: false,
+            isShown: false
         }
     }
 
@@ -92,7 +101,7 @@ export default class HomePage extends React.Component {
 
     logOut() {
         console.log("Clicked");
-        return <Redirect to="/"></Redirect>
+        return <Redirect to="/"></Redirect>;
     }
 
     render() {
@@ -101,6 +110,9 @@ export default class HomePage extends React.Component {
             <div>
                 <div class="header">
                     <h2>RMIT (Remember to fcking put a logo here)
+                        <Link to={'/create'}>
+                            <button class="btn btn-light" style={button} id="btn" onClick={this.toggleTheme}>Create</button>
+                        </Link>
                         <Link to={'/login'}>
                             <button class="btn btn-light" id="btn" onClick={this.logOut}>Log out</button>
                         </Link>
@@ -119,9 +131,10 @@ export default class HomePage extends React.Component {
                     <a href="" target="_blank" rel="noopener noreferrer">Put some information here pls</a>
                 </div>
                 <div class="page sc" id="wrapper"
-                    onClick={this.handleMouseMove}
+                    // onClick={this.handleMouseMove}
                     // onClick={this.handleMouseLeave}
-                    onMouseOut={this.handleMouseOut}>
+                    // onMouseOut={this.handleMouseOut}
+                    >
 
                     <PieChart />
 
