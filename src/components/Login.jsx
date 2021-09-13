@@ -2,7 +2,7 @@ import React from "react";
 import Particles from "react-particles-js";
 import particlesConfig from "../assets/particlesConfig.json";
 import '../css/Login.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 export default class Login extends React.Component {
     constructor(props) {
