@@ -3,6 +3,7 @@ import Particles from "react-particles-js";
 import particlesConfig from "../assets/particlesConfig.json";
 import '../css/Login.css';
 import { Link, Redirect } from 'react-router-dom';
+import passwordHash from 'password-hash';
 
 export default class Login extends React.Component {
     constructor(props) {
@@ -30,9 +31,9 @@ export default class Login extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.setState({submitted: true});
-        const {email, password} = this.state;
-        if(email && password) {
+        this.setState({ submitted: true });
+        const { email, password } = this.state;
+        if (email && password) {
             // eslint-disable-next-line no-restricted-globals
             history.push("/");
         } else {
@@ -41,22 +42,31 @@ export default class Login extends React.Component {
     }
 
     getInfo() {
-        const getUrl = "";
+        var password = this.state.password;
+        var input = {
+            name: this.state.email,
+            password: this.state.password
+        };
+        console.log("User's credentials: ", input);
+        // var hashed = passwordHash.generate(password, ['salt']);
+        // console.log("Hashed password: ", hashed);
+        const getUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/users";
         fetch(getUrl)
-        .then(res => res.json())
-        .then(data => {
-            var user = data.find(e => e.email === this.state.email);
-            if(user !== undefined) {
-                if(this.state.password === user.password) {
-                    this.setState({user: user});
-                    alert("You have logged in successfully");
+            .then(res => res.json())
+            .then(data => {
+                var user = data.find(e => e.email === this.state.email);
+                if (user !== undefined) {
+                    if (passwordHash.verify(password, user.password)) {
+                        this.setState({ user: user });
+                        console.log("You have logged in successfully");
+                    } else {
+                        console.log(passwordHash.verify(password, user.password));
+                        console.log("Wrong password, sucker!");
+                    }
                 } else {
-                    alert("Wrong password, sucker!");
+                    console.log("This user doesn't even exist, you lost your mind?");
                 }
-            } else {
-                alert("This user doesn't even exist, you lost your mind?");
-            }
-        })
+            })
     }
 
     render() {
@@ -72,19 +82,21 @@ export default class Login extends React.Component {
                                 <form>
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-envelope-o"></i></span></div><input class="form-control" type="email" required="" placeholder="Email" />
+                                            <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-envelope-o"></i></span></div>
+                                            <input class="form-control" type="email" name="email" required="" placeholder="Email" value={this.state.email} onChange={this.handleChange.bind(this)} />
                                             <div class="input-group-append"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-lock"></i></span></div><input class="form-control" type="password" required="" placeholder="Password" />
+                                            <div class="input-group-prepend"><span class="text-primary input-group-text"><i class="fa fa-lock"></i></span></div>
+                                            <input class="form-control" type="password" name="password" required="" placeholder="Password" value={this.state.password} onChange={this.handleChange.bind(this)} />
                                             <div class="input-group-append"></div>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <Link to={'/home'}>
-                                            <button class="btn btn-primary btn-lg text-white" style={{ width: '100%' }} type="button">Log in</button>
+                                            <button class="btn btn-primary btn-lg text-white" style={{ width: '100%' }} type="button" onClick={this.getInfo.bind(this)}>Log in</button>
                                         </Link>
                                     </div>
                                 </form>
