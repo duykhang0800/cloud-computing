@@ -44,15 +44,18 @@ export default class Signup extends React.Component {
         };
 
         var url = "";
-        var postUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/users";
-        const response = fetch(url, {
+        var postUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/register";
+        const response = fetch(postUrl, {
             method: 'POST',
+            mode: 'cors',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify(input)
         })
-            .then(response => {
+            .then(res => {
+                console.log(res.json());
                 console.log(input);
                 alert("You have successfully created an appointment");
                 this.resetState()
