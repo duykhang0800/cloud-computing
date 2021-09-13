@@ -43,8 +43,9 @@ export default class Signup extends React.Component {
             subscription: this.state.subscription
         };
 
-        var postUrl = "";
-        const response = fetch(postUrl, {
+        var url = "";
+        var postUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/users";
+        const response = fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
