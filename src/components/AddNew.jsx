@@ -6,11 +6,11 @@ export default class AddNew extends React.Component {
         return (
             <div className="row">
                 <div className="col">
-                    <div className="card shadow mb-3">
-                        <div className="card-header py-3">
+                    <div className="newCard shadow mb-3">
+                        <div className="newCard-header py-3">
                             <p className="text-primary m-0 font-weight-bold">User Settings</p>
                         </div>
-                        <div className="card-body">
+                        <div className="newCard-body">
                             <form>
                                 <div className="form-row">
                                     <div className="col">
@@ -87,11 +87,11 @@ export default class AddNew extends React.Component {
 
                         </div>
                     </div>
-                    <div className="card shadow">
-                        <div className="card-header py-3">
+                    <div className="newCard shadow">
+                        <div className="newCard-header py-3">
                             <p className="text-primary m-0 font-weight-bold">Contact Settings</p>
                         </div>
-                        <div className="card-body">
+                        <div className="newCard-body">
                             <form>
                                 <div className="form-group"><label htmlFor="address"><strong>Address</strong></label><input className="form-control" type="text" placeholder="Sunset Blvd, 38" name="address" /></div>
                                 <div className="form-row">
@@ -106,11 +106,11 @@ export default class AddNew extends React.Component {
                             </form>
                         </div>
                     </div>
-                    <div className="card shadow" visible="false">
-                        <div className="card-header py-3">
+                    <div className="newCard shadow" visible="false">
+                        <div className="newCard-header py-3">
                             <p className="text-primary m-0 font-weight-bold">Private Information</p>
                         </div>
-                        <div className="card-body" >
+                        <div className="newCard-body" >
                             <form>
                                 <div className="form-row">
 

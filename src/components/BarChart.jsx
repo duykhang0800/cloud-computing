@@ -2,9 +2,9 @@ import React from 'react'
 import Chart from 'chart.js/auto';
 import '../css/Home.css'
 import '../css/Cards.css'
+import { CompareArrowsOutlined } from '@material-ui/icons';
 
 const style = {
-    width: "50%",
     // backgroundColor: "grey",
     zIndex: 2
 }
@@ -30,9 +30,9 @@ export default class BarChart extends React.Component {
 
         this.state = {
             newLabels: [],
-            newData: [],
+            data1: [],
             cinemaId: [],
-            provisional: []
+            data2: []
         }
     }
 
@@ -56,12 +56,17 @@ export default class BarChart extends React.Component {
         this.fetchRecords();
     }
 
-    fetchRecords() {
+    async fetchRecords() {
+        var month = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
         var idArray = this.state.cinemaId;
-        const saleArray = [];
+        const saleArray1 = [];
+        const saleArray2 = [];
+
+        var totalMoney1 = 0;
+        var totalMoney2 = 0;
         console.log(idArray);
         const recordUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/records";
-        fetch(recordUrl)
+        await fetch(recordUrl)
             .then(res => res.json())
             .then(json => {
                 // var records = data.map(function (e) {
@@ -74,46 +79,32 @@ export default class BarChart extends React.Component {
                     // console.log("This is the cinema id: ", d.cinema.cid)
                     // console.log("This is cinema total sale: ", d.totalSale)
                     if (d.cinema.cid === idArray[0]) {
-                        saleArray.push(d.totalSale);
+                        saleArray1.push(d.totalSale);
+                    } else {
+                        if (d.cinema.cid === idArray[1]) {
+                            saleArray2.push(d.totalSale);
+                        }
                     }
+
+                    for (let i = 0; i < saleArray1.length; i++) {
+                        totalMoney1 += saleArray1[i];
+                    }
+
+                    for (let j = 0; j < saleArray2.length; j++) {
+                        totalMoney2 += saleArray2[j]
+                    }
+
                 });
 
-                this.setState({ newData: saleArray });
-                console.log(this.state.newData);
+                console.log("This is the total sale of cinema 1: ", totalMoney1);
+                console.log("This is the total sale of cinema 2: ", totalMoney2)
+                this.setState({ data1: totalMoney1, data2: totalMoney2 });
+
             })
+        this.createChart();
     }
 
-
-    componentDidMount() {
-        // this.fetchCinema(function() {
-        //     this.fetchRecords()
-        // }.bind(this))
-        this.fetchCinema()
-        const fetchUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/records"
-        const url = "https://api.publicapis.org/entries"
-        // fetch(fetchUrl, {
-        //     // method: 'GET',
-        //     // mode: 'cors',
-        //     // headers: {
-        //     //     'Access-Control-Allow-Origin': '*'
-        //     // }
-        // })
-        //     .then(res => res.json())
-        //     .then(data => {
-        //         // console.log(data)
-        //         var labels = data.map(function (e) {
-        //             return e.cinema.name;
-        //         });
-        //         // console.log(labels)
-        //         var data = data.map(function (e) {
-        //             return e.totalSale
-        //         });
-        //         // console.log(data)
-        //         this.setState({ newLabels: labels, newData: data })
-        //         console.log(this.state.newLabels)
-        //         console.log(this.state.newData)
-        //     })
-
+    createChart() {
         var jsonfile = {
             "jsonarray": [
                 {
@@ -142,25 +133,17 @@ export default class BarChart extends React.Component {
         var myChart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: labels,
+                labels: this.state.newLabels,
                 datasets: [{
-                    label: 'Number of Votes',
-                    data: data,
+                    label: 'Total Sale of each cinema in a year',
+                    data: [this.state.data1, this.state.data2],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)',
                         'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
                     ],
                     borderWidth: 1
                 }]
@@ -175,71 +158,80 @@ export default class BarChart extends React.Component {
             }
         });
 
-        const newData = [{ x: 'Jan', net: 100, cogs: 50, gm: 50 }, { x: 'Feb', net: 120, cogs: 55, gm: 75 }];
-        var chart = document.getElementById("barChart2");
-        var newChart = new Chart(chart, {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Feb'],
-                datasets: [{
-                    label: 'Net sales',
-                    data: newData,
-                    parsing: {
-                        yAxisKey: 'net'
-                    },
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                    ],
-                    borderWidth: 1
-                }, {
-                    label: 'Cost of goods sold',
-                    data: newData,
-                    parsing: {
-                        yAxisKey: 'cogs'
-                    },
-                    backgroundColor: [
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }, {
-                    label: 'Gross margin',
-                    data: newData,
-                    parsing: {
-                        yAxisKey: 'gm'
-                    },
-                    backgroundColor: [
+        // const newData = [{ x: 'Jan', net: 100, cogs: 50, gm: 50 }, { x: 'Feb', net: 120, cogs: 55, gm: 75 }];
+        // var chart = document.getElementById("barChart2");
+        // var newChart = new Chart(chart, {
+        //     type: 'bar',
+        //     data: {
+        //         labels: ['Jan', 'Feb', 'March', 'April', 'May', 'Jun'],
+        //         datasets: [{
+        //             label: 'Net sales',
+        //             data: newData,
+        //             parsing: {
+        //                 yAxisKey: 'net'
+        //             },
+        //             backgroundColor: [
+        //                 'rgba(255, 99, 132, 0.2)',
+        //             ],
+        //             borderColor: [
+        //                 'rgba(255, 99, 132, 1)',
+        //             ],
+        //             borderWidth: 1
+        //         }, {
+        //             label: 'Cost of goods sold',
+        //             data: newData,
+        //             parsing: {
+        //                 yAxisKey: 'cogs'
+        //             },
+        //             backgroundColor: [
+        //                 'rgba(255, 159, 64, 0.2)'
+        //             ],
+        //             borderColor: [
+        //                 'rgba(255, 159, 64, 1)'
+        //             ],
+        //             borderWidth: 1
+        //         },
+        //             {
+        //                 label: 'Gross margin',
+        //                 data: newData,
+        //                 parsing: {
+        //                     yAxisKey: 'gm'
+        //                 },
+        //                 backgroundColor: [
 
-                        'rgba(255, 206, 86, 0.2)',
+        //                     'rgba(255, 206, 86, 0.2)',
 
-                    ],
-                    borderColor: [
+        //                 ],
+        //                 borderColor: [
 
-                        'rgba(255, 206, 86, 1)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                skipNull: true
-            }
-        })
+        //                     'rgba(255, 206, 86, 1)',
+        //                 ],
+        //                 borderWidth: 1
+        //             }
+        //         ]
+        //     },
+        //     options: {
+        //         scales: {
+        //             y: {
+        //                 beginAtZero: true
+        //             }
+        //         },
+        //         skipNull: true
+        //     }
+        // })
+    }
+
+    componentDidMount() {
+        this.fetchCinema()
+        const fetchUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/records"
+        const url = "https://api.publicapis.org/entries"
+
     }
 
     render() {
         return (
-            <div class="container-fluid" style={style}>
-                <div class="column">
+            <div class="container">
+                {/* <div class="column">
                     <div class="cards-list">
                         <div class="card 1">
                             <div class="card-image">
@@ -250,7 +242,6 @@ export default class BarChart extends React.Component {
 
                 </div>
                 <div class="column">
-
                     <div class="cards-list">
                         <div class="card 1">
                             <div class="card-image">
@@ -258,9 +249,14 @@ export default class BarChart extends React.Component {
                             </div>
                         </div>
                     </div>
+                </div> */}
+                <div class="cards-list">
+                    <div class="card 1" style={{width: "600px", height: "400px"}}>
+                        <div class="card-image">
+                            <canvas id="barChart1" width="600px" height="400px"></canvas>
+                        </div>
+                    </div>
                 </div>
-
-
             </div>
         )
     }

@@ -137,6 +137,7 @@ export default class HomePage extends React.Component {
                     >
 
                     <PieChart />
+                    {/* <NewPieChart/> */}
 
                     {this.state.isShown === true && (
                         <div style={{ zIndex: 5 }}>
