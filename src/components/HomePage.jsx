@@ -139,11 +139,11 @@ export default class HomePage extends React.Component {
                     <PieChart />
                     {/* <NewPieChart/> */}
 
-                    {this.state.isShown === true && (
+                    {/* {this.state.isShown === true && (
                         <div style={{ zIndex: 5 }}>
                             <p>Click to cancel</p>
                         </div>
-                    )}
+                    )} */}
                 </div>
                 <div class="page th">
                     <BarChart />
@@ -151,9 +151,6 @@ export default class HomePage extends React.Component {
                 <div class="page fr">
                     <CsvReader />
                 </div>
-
-
-
             </div>
         )
     }

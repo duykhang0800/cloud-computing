@@ -81,10 +81,10 @@ const customStyles = {
 };
 
 const data = [
-    { 
-        id: 1, 
-        title: 'Conan the Barbarian', 
-        year: '1982' 
+    {
+        id: 1,
+        year: '1982',
+        title: 'Conan the Barbarian'
     },
     {
         id: 2,
@@ -111,134 +111,129 @@ const columns = [
     },
 ];
 
-function CsvReader() {
+const newColumns = [
+    {
+        name: 'Cinema Name',
+        selector: 'cinema',
+        sortable: true
+    },
+    {
+        name: 'Total Sale',
+        selector: 'totalSale',
+        sortable: true
+    },
+    {
+        name: 'Ticket Sold',
+        selector: 'ticketSold',
+        sortable: true
+    }
+];
 
-    // const [columns, setColumns] = useState([]);
-    // const [data, setData] = useState([]);
+const newData = [
+    {
+        totalSale: 9000,
+        ticketSold: 6,
+        cinema: 'Galaxy 1'
+    },
+    {
+        totalSale: 5000,
+        ticketSold: 5,
+        cinema: 'Galaxy 3'
+    }
+]
 
-    // process CSV data
-    // const processData = dataString => {
-    //     const dataStringLines = dataString.split(/\r\n|\n/);
-    //     const headers = dataStringLines[0].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
+export default class CsvReader extends React.Component {
+    constructor(props) {
+        super(props)
 
-    //     const list = [];
-    //     for (let i = 1; i < dataStringLines.length; i++) {
-    //         const row = dataStringLines[i].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
-    //         if (headers && row.length == headers.length) {
-    //             const obj = {};
-    //             for (let j = 0; j < headers.length; j++) {
-    //                 let d = row[j];
-    //                 if (d.length > 0) {
-    //                     if (d[0] == '"')
-    //                         d = d.substring(1, d.length - 1);
-    //                     if (d[d.length - 1] == '"')
-    //                         d = d.substring(d.length - 2, 1);
-    //                 }
-    //                 if (headers[j]) {
-    //                     obj[headers[j]] = d;
-    //                 }
-    //             }
-
-    //             // remove the blank rows
-    //             if (Object.values(obj).filter(x => x).length > 0) {
-    //                 list.push(obj);
-    //             }
-    //         }
-    //     }
-
-    //     // prepare columns list from headers
-    //     const columns = headers.map(c => ({
-    //         name: c,
-    //         selector: c,
-    //     }));
-
-    //     setData(list);
-    //     setColumns(columns);
-    // }
-
-    // handle file upload
-    // const handleFileUpload = e => {
-    //     const file = e.target.files[0];
-    //     const reader = new FileReader();
-    //     reader.onload = (evt) => {
-    //         /* Parse data */
-    //         const bstr = evt.target.result;
-    //         const wb = XLSX.read(bstr, { type: 'binary' });
-    //         /* Get first worksheet */
-    //         const wsname = wb.SheetNames[0];
-    //         const ws = wb.Sheets[wsname];
-    //         /* Convert array of arrays */
-    //         const data = XLSX.utils.sheet_to_csv(ws, { header: 1 });
-    //         processData(data);
-    //     };
-    //     reader.readAsBinaryString(file);
-    // }
-
-    // useEffect(() => {
-    //     console.log("Component called");
-    //     //const file = require("./project.csv");
-    //     //console.log(file);
-    //     // const reader = new FileReader();
-    //     // reader.onload = (evt) => {
-    //     //     const bstr = evt.target.result;
-    //     //     const wb = XLSX.read(bstr, {type: 'binary'});
-    //     //     const wsname = wb.SheetNames[0];
-    //     //     const ws = ws.Sheets[wsname];
-    //     //     const data = XLSX.utils.sheet_to_csv(ws, {header: 1});
-    //     //     processData(data);
-    //     // };
-    //     // reader.readAsBinaryString(file);
-    //     const papaConfig = {
-    //         complete: (results, file) => {
-    //             console.log("Parsing complete: ", results, file);
-    //         },
-    //         download: true,
-    //         error: (error, file) => {
-    //             console.log("Error while parsing: ", error, file);
-    //         }
-    //     };
-
-    //     const data = readString(file, papaConfig);
-
-    //     // console.log(data);
-    //     // console.log(json);
-    //     // //processData(data);
-    //     // // for(var key in data[0]) {
-    //     // //     console.log(data[0][key]);
-    //     // // }
-    //     // for(var key in json) {
-    //     //     for (var key1 in json[key]) {
-    //     //         console.log(json[key][key1])
-    //     //     }
-    //     //  }
-    // })
-
-    const handleChange = (selectedRows) => {
-        console.log(selectedRows)
+        this.state = {
+            data: [],
+            rows: [],
+            selected: false
+        }
     }
 
-    return (
-        <div>
-            <h3>Read CSV file in React - <a href="https://www.cluemediator.com" target="_blank" rel="noopener noreferrer">Clue Mediator</a></h3>
-            {/* <input
-                type="file"
-                accept=".csv,.xlsx,.xls"
-                onChange={handleFileUpload}
-            /> */}
-            <DataTable
-                pagination
-                highlightOnHover
-                columns={columns}
-                data={data}
-                defaultSortField="title"
-                sortIcon={<SortIcon/>}
-                // customStyles={customStyles}
-                selectableRows
-                // onSelectedRowsChange={({ selectedRows }) => console.log(selectedRows)}
-                onSelectedRowsChange={handleChange}
-            />
-        </div>
-    );
-}
+    fetchRecords() {
+        const recordUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/records";
+        var data = [];
 
-export default CsvReader;
+        fetch(recordUrl)
+            .then(res => res.json())
+            .then(res => {
+                res.filter(d => {
+                    var dataSet = {
+                        cinema: d.cinema.name,
+                        totalSale: d.totalSale,
+                        ticketSold: d.ticketSold
+                    };
+                    data.push(dataSet);
+                })
+                console.log("This is my data: ")
+                this.setState({ data: data });
+                console.log(this.state.data);
+            })
+    }
+
+    componentDidMount() {
+        this.fetchRecords();
+    }
+
+    async handleChange(selectedRows) {
+        // console.log(selectedRows[0]);
+        await this.setState({ rows: selectedRows });
+        this.setState({ selected: true });
+        console.log("State data: ", this.state.rows.selectedRows);
+        // for (let i = 0; i < this.state.rows.selectedRows.length; i++) {
+        //     console.log(this.state.rows.selectedRows[i]);
+        // }
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        if (this.state.selected === false) {
+            alert("You haven't selected anything yet");
+        } else {
+            if (this.state.rows.selectedRows.length > 0) {
+                console.log("These are the records that will be sent: ");
+                for (let i = 0; i < this.state.rows.selectedRows.length; i++) {
+                    console.log(this.state.rows.selectedRows[i]);
+                }
+            } else {
+                alert("You haven't selected anything yet");
+            }
+        }
+
+    }
+
+    render() {
+        return (
+            <div>
+                {/* <input
+                        type="file"
+                        accept=".csv,.xlsx,.xls"
+                        onChange={handleFileUpload}
+                    /> */}
+                <div style={{ height: '500px', paddingTop: '60px' }}>
+                <DataTable
+                    pagination
+                    highlightOnHover
+                    columns={newColumns}
+                    data={this.state.data}
+                    defaultSortField="Cinema Name"
+                    sortIcon={<SortIcon />}
+                    // customStyles={customStyles}
+                    selectableRows
+                    // onSelectedRowsChange={({ selectedRows }) => {
+                    //     console.log(selectedRows);
+                    //     this.setState({rows: selectedRows});
+                    //     console.log("State data: ", this.state.rows);
+                    // }}
+                    onSelectedRowsChange={this.handleChange.bind(this)}
+                />
+                </div>
+                
+                <button class="btn btn-primary btn-lg text-white" style={{ width: '100px', height: '50px', marginTop: '160px' }} type="button" onClick={this.handleSubmit.bind(this)}>Submit</button>
+            </div>
+        );
+    }
+}

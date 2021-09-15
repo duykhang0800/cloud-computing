@@ -15,6 +15,7 @@ export default class Login extends React.Component {
             submitted: false,
             user: undefined
         }
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(e) {
@@ -24,13 +25,15 @@ export default class Login extends React.Component {
     }
 
     reDirecting() {
-        if (this.state.myuser !== undefined) {
-            return <Redirect to={"" + this.state.user.userName} />
+        if (this.state.submitted) {
+            console.log("Redirecting");
+            return <Redirect to={'/home'} />
         }
     }
 
     handleSubmit(e) {
         e.preventDefault();
+        console.log("Submit function called");
         this.setState({ submitted: true });
         const { email, password } = this.state;
         if (email && password) {
@@ -44,27 +47,30 @@ export default class Login extends React.Component {
     getInfo() {
         var password = this.state.password;
         var input = {
-            name: this.state.email,
+            email: this.state.email,
             password: this.state.password
         };
         console.log("User's credentials: ", input);
         // var hashed = passwordHash.generate(password, ['salt']);
         // console.log("Hashed password: ", hashed);
-        const getUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/users";
-        fetch(getUrl)
+        const postUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/login";
+        const response = fetch(postUrl, {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(input)
+        })
             .then(res => res.json())
             .then(data => {
-                var user = data.find(e => e.email === this.state.email);
-                if (user !== undefined) {
-                    if (passwordHash.verify(password, user.password)) {
-                        this.setState({ user: user });
-                        console.log("You have logged in successfully");
-                    } else {
-                        console.log(passwordHash.verify(password, user.password));
-                        console.log("Wrong password, sucker!");
-                    }
+                console.log(data);
+                if (data === true) {
+                    alert("You have successfully logged in");
+                    this.setState({submitted: true});
                 } else {
-                    console.log("This user doesn't even exist, you lost your mind?");
+                    alert("Wrong email or password!");
                 }
             })
     }
@@ -72,6 +78,7 @@ export default class Login extends React.Component {
     render() {
         return (
             <div className="login-page">
+                {this.reDirecting()}
                 <Particles params={particlesConfig} className="particles-container" />
                 <div class="Modal" style={{ paddingTop: "0px", zIndex: 1 }}>
                     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
@@ -95,9 +102,10 @@ export default class Login extends React.Component {
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <Link to={'/home'}>
-                                            <button class="btn btn-primary btn-lg text-white" style={{ width: '100%' }} type="button" onClick={this.getInfo.bind(this)}>Log in</button>
-                                        </Link>
+                                        {/* <Link to={'/home'}>
+                                            
+                                        </Link> */}
+                                        <button class="btn btn-primary btn-lg text-white" style={{ width: '100%' }} type="button" onClick={this.getInfo.bind(this)}>Log in</button>
                                     </div>
                                 </form>
                                 <hr style={{ backgroundColor: '#bababa' }} />
