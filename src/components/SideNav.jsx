@@ -1,6 +1,7 @@
 import React from 'react'
 import '../css/SideNav.css'
 import { Icon } from '@iconify/react';
+import { Link, Redirect } from 'react-router-dom';
 
 
 var content = {
@@ -9,6 +10,24 @@ var content = {
     position: 'fixed',
 }
 export default class SideNav extends React.Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            redirected: false
+        }
+    }
+
+    logOut() {
+       if(this.state.redirected) {
+           return <Redirect to={'/login'}/>;
+       }
+    }
+
+    onClick() {
+        this.setState({redirected: true});
+    }
 
     handleMouseClick = (e) => {
         e.preventDefault();
@@ -22,6 +41,7 @@ export default class SideNav extends React.Component {
     render() {
         return (
             <div style={content}>
+                {this.logOut()}
                 <nav class="side-nav">
                     <div id="nav-icon" class="hamburger" onClick={this.handleMouseClick}>
                         <span class="bar"></span>
@@ -32,12 +52,12 @@ export default class SideNav extends React.Component {
                             <span class="mx-2">Home</span>
                         </li>
                         <li href="#" class="nav-link">
-                            <Icon icon="bx:bx-user-check" />
-                            <span class="mx-2">Profile</span>
-                        </li>
-                        <li href="#" class="nav-link">
                             <Icon icon="bx:bx-conversation" />
                             <span class="mx-2">Contact</span>
+                        </li>
+                        <li href="#" class="nav-link">
+                            <Icon icon="bx:bx-log-out" />
+                            <span class="mx-2" onClick={this.onClick.bind(this)}>Log out</span>
                         </li>
                     </ul>
                 </nav>

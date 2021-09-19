@@ -35,10 +35,10 @@
   }
 
   .ss {
-    background-color: yellow;
+    background-color: rgba(36, 37, 38);
     z-index: 6;
     /* background: url("https://images.pexels.com/photos/931018/pexels-photo-931018.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"); */
-    background: linear-gradient(to bottom right, rgba(131,58,180,1) 16%, rgba(130,69,252,1) 80%, rgba(29,98,253,1) 100%);
+    /* background: linear-gradient(to bottom right, rgba(131,58,180,1) 16%, rgba(130,69,252,1) 80%, rgba(29,98,253,1) 100%); */
     background-size: cover;
     background-position: 0% 70%;
     background-repeat: no-repeat;
@@ -53,7 +53,7 @@
     background-repeat: no-repeat;
     transform: translateX(var(--x)) translateY(var(--y)) scale(var(--scale));
     transition: ease-out 0.7s;
-    background-image: url('../images/pic1.jpg');
+    background-image: url('../images/inner_theater3.jpg');
     --y: 0;
   }
   .sc a{
@@ -66,21 +66,30 @@
     background-size: cover;
     background-position: 0% 70%;
     background-repeat: no-repeat;
+    background-image: url('../images/inner_theater4.jpg');
   }
   .th a{
     color: #00ace6;
   }
   .fr {
-    background-color: lightblue;
-    background: linear-gradient(to bottom right, rgba(69,248,252,1) 24%, rgba(29,132,253,1) 88%, rgba(29,79,253,1) 100%);
     z-index: 2;
-    /* background: url("https://images.pexels.com/photos/6775273/pexels-photo-6775273.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"); */
+    background-image: url('../images/theater.jpg');
     background-size: cover;
-    background-position: 0% 30%;
+    background-position: center;
     background-repeat: no-repeat;
   }
   .fr a{
     color: #ff9999;
+  }
+
+  .ls {
+    background-color: rgba(36, 37, 38);
+    /* background: linear-gradient(to bottom right, rgba(69,248,252,1) 24%, rgba(29,132,253,1) 88%, rgba(29,79,253,1) 100%); */
+    z-index: 1;
+    /* background: url("https://images.pexels.com/photos/6775273/pexels-photo-6775273.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"); */
+    background-size: cover;
+    background-position: 0% 30%;
+    background-repeat: no-repeat;
   }
 
   .arrow {
@@ -159,4 +168,14 @@
 #btn:hover:before{			
     top: 0;
     left: 0;
+}
+
+.paragraph {
+  font-family: 'Courier New', monospace;
+  color: #f1f1f1;
+}
+
+.heading {
+  color: #f1f1f1;
+  font-family: 'Brush Script MT', cursive;
 }

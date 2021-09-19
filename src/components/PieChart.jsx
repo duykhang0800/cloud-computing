@@ -2,6 +2,7 @@ import React from 'react'
 import Chart from 'chart.js/auto';
 import '../css/Cards.css'
 import '../css/Home.css'
+import '../css/HomePage.css'
 
 const style = {
     width: "400px",
@@ -141,8 +142,10 @@ export default class PieChart extends React.Component {
         return (
             <div class="container-fluid">
                 <div class="column">
-                    <a href="http://" target="_blank" rel="noopener noreferrer">Description:</a>
-                    <p>Total ticket sold of each cinema</p>
+                    <h1 class='heading' style={{fontSize: 50, color: '#283038'}}><u>Description:</u></h1>
+                    <p class='paragraph' style={{fontSize: 50, color: '#283038', marginLeft: '200px'}}>
+                    Total ticket sold of each cinema
+                    </p>
                 </div>
                 <div class="column">
                     <div class="cards-list">

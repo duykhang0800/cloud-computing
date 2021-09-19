@@ -27,7 +27,7 @@ export default class Login extends React.Component {
     reDirecting() {
         if (this.state.submitted) {
             console.log("Redirecting");
-            return <Redirect to={'/home'} />
+            return <Redirect to={'/home/' + this.state.email} />
         }
     }
 

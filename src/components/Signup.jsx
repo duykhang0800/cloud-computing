@@ -117,7 +117,6 @@ export default class Signup extends React.Component {
                                     </div>
                                     <div class="form-group">
                                         <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-1" required="" defaultChecked={this.state.subscription} name="subscription" onClick={this.onChecked.bind(this)} /><label class="form-check-label" for="formCheck-1">Subscribe to us?</label></div>
-                                        <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2" required="" checked="" /><label class="form-check-label" for="formCheck-2">I agree all the terms and conditions.</label></div>
                                     </div>
                                     <div class="form-group">
                                         <Link to={'/login'}>

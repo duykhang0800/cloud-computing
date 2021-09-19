@@ -9,6 +9,7 @@ import '../css/HomePage.css';
 import { lightTheme, darkTheme } from '../js/theme';
 import { GlobalStyles } from '../js/global';
 import { ThemeProvider } from "styled-components";
+import '../css/FontAnimate.css'
 
 const fetchUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/records"
 
@@ -23,68 +24,18 @@ export default class HomePage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            isShown: false
+            isShown: false,
+            email: ''
         }
     }
 
-    handleMouseMove = (e) => {
-        this.setState({ isShown: false })
-        e.preventDefault();
-
-        const el = document.getElementById("wrapper");
-        const d = el.getBoundingClientRect();
-        let x = e.clientX - (d.left + Math.floor(d.width / 2));
-        let y = e.clientY - (d.top + Math.floor(d.height / 2));
-        // Invert values
-        x = x - x * 2;
-        y = y - y * 2;
-        document.documentElement.style.setProperty("--scale", 1.6);
-        document.documentElement.style.setProperty("--x", x / 2 + "px");
-        document.documentElement.style.setProperty("--y", y / 2 + "px");
-
-        // let timeout;
-        // (() => {
-        //     clearTimeout(timeout);
-        //     timeout = setTimeout(() => this.setState({ isShown: true }), 3000);
-        // })();
-    };
-
-    handleMouseLeave = () => {
-        document.documentElement.style.setProperty("--scale", 1);
-        document.documentElement.style.setProperty("--x", 0);
-        document.documentElement.style.setProperty("--y", 0);
-    };
-
-    handleMouseOut = () => {
-        document.documentElement.style.setProperty("--scale", 1);
-        document.documentElement.style.setProperty("--x", 0);
-        document.documentElement.style.setProperty("--y", 0);
+    setProps() {
+        const { match: { params } } = this.props;
+        this.setState({ email: params.email });
     }
 
-    // onFocusFunction() {
-    //     document.getElementsByTagName("div")[3].setAttribute("style", "--scale: 1");
-    // }
-
-    // async componentDidMount() {
-    //     this.focusListener = this.navigation.addListener('didFocus', () => {
-    //         this.onFocusFunction()
-    //     })
-    // }
-
-    // componentWillUnmount() {
-    //     document.documentElement.style.setProperty("--scale", 1);
-    // }
-
-    // handleMouseHover = () => {
-    //     if (this.state.isShown === true) {
-    //         return;
-    //     } else {
-    //         this.setState({ isShown: true })
-    //         console.log("Click to cancel")
-    //     }
-    // }
-
     componentDidMount() {
+        this.setProps();
         window.addEventListener('scroll', this.handleScroll);
     }
 
@@ -109,10 +60,8 @@ export default class HomePage extends React.Component {
         return (
             <div>
                 <div class="header">
-                    <h2>RMIT (Remember to fcking put a logo here)
-                        <Link to={'/create'}>
-                            <button class="btn btn-light" style={button} id="btn" onClick={this.toggleTheme}>Create</button>
-                        </Link>
+                    <h2>Welcome {this.state.email}
+                        {/* <button class="btn btn-light" style={button} id="btn" onClick={this.toggleTheme}>Create</button> */}
                         <Link to={'/login'}>
                             <button class="btn btn-light" id="btn" onClick={this.logOut}>Log out</button>
                         </Link>
@@ -124,31 +73,74 @@ export default class HomePage extends React.Component {
                 </div>
                 <SideNav />
                 <div class="page fs">
-                    <a href="" target="_blank" rel="noopener noreferrer">Movie Theater CRM</a>
+                    {/* <a href="" target="_blank" rel="noopener noreferrer">Movie Theater CRM</a> */}
+                    <div class="text-container">
+                        <div class="letter">M</div>
+                        <div class="letter">o</div>
+                        <div class="letter">v</div>
+                        <div class="letter">i</div>
+                        <div class="letter">e</div>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <div class="letter">T</div>
+                        <div class="letter">h</div>
+                        <div class="letter">e</div>
+                        <div class="letter">a</div>
+                        <div class="letter">t</div>
+                        <div class="letter">e</div>
+                        <div class="letter">r</div>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <div class="letter">C</div>
+                        <div class="letter">R</div>
+                        <div class="letter">M</div>
+                    </div>
                     <p><i class="arrow down"></i></p>
                 </div>
                 <div class="page ss">
-                    <a href="" target="_blank" rel="noopener noreferrer">Put some information here pls</a>
+                    <h1 class='heading' style={{ fontSize: 70, marginBottom: '30px' }}><u>Project Overview:</u></h1>
+                    <p class='paragraph' style={{ fontSize: 30 }}>
+                        From the increase of the cinema, we decided to create the CRM for cinema to manage the ticket and cost of cinema.
+                    </p>
+                    <p class='paragraph' style={{ fontSize: 30 }}>
+                        CRM is all about giving businesses the tools they need to retain customers and achieve long-term sales growth.
+                    </p>
+                    <p class='paragraph' style={{ fontSize: 30 }}>
+                        CRM software systems may be seen as your primary checkout for everything that counts when dealing with your company's consumers, such as complaints or purchase history, as well as sales trends and sales
+                    </p>
                 </div>
                 <div class="page sc" id="wrapper"
-                    // onClick={this.handleMouseMove}
-                    // onClick={this.handleMouseLeave}
-                    // onMouseOut={this.handleMouseOut}
-                    >
-
+                // onClick={this.handleMouseMove}
+                // onClick={this.handleMouseLeave}
+                // onMouseOut={this.handleMouseOut}
+                >
                     <PieChart />
-                    {/* <NewPieChart/> */}
-
-                    {/* {this.state.isShown === true && (
-                        <div style={{ zIndex: 5 }}>
-                            <p>Click to cancel</p>
-                        </div>
-                    )} */}
                 </div>
                 <div class="page th">
                     <BarChart />
                 </div>
                 <div class="page fr">
+                <div class="text-container">
+                        <div class="letter">C</div>
+                        <div class="letter">R</div>
+                        <div class="letter">M</div>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <div class="letter">D</div>
+                        <div class="letter">A</div>
+                        <div class="letter">T</div>
+                        <div class="letter">A</div>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <div class="letter">T</div>
+                        <div class="letter">A</div>
+                        <div class="letter">B</div>
+                        <div class="letter">L</div>
+                        <div class="letter">E</div>
+                    </div>
+                    <p><i class="arrow down"></i></p>
+                </div>
+                <div class="page ls">
                     <CsvReader />
                 </div>
             </div>

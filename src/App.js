@@ -44,10 +44,11 @@ function App() {
           <Route exact path='/' component={Login} />
           <Route exact path='/signup' component={Signup} />
           <Route exact path='/login' component={Login}/>
-          {/* <Route exact path={`/home/:email`} render={(props) =>
-            <HomePage {...props}/>}/> */}
-          <Route exact path='/home' component={HomePage}/>
-          <Route exact path='/create' component={AddNew}/>
+          <Route exact path={`/home/:email`} render={(props) =>
+            <HomePage {...props}/>
+            }/>
+          {/* <Route exact path='/home' component={HomePage}/> */}
+          {/* <Route exact path='/create' component={AddNew}/> */}
         </Switch>
       </div>
     </Router>

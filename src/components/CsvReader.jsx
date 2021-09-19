@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
 import DataTable, { createTheme } from 'react-data-table-component';
-import file from '../project.csv';
+// import file from '/';
 import { readString } from 'react-papaparse';
 import SortIcon from "@material-ui/icons/ArrowDownward";
 
@@ -202,7 +202,6 @@ export default class CsvReader extends React.Component {
                 alert("You haven't selected anything yet");
             }
         }
-
     }
 
     render() {
@@ -214,24 +213,23 @@ export default class CsvReader extends React.Component {
                         onChange={handleFileUpload}
                     /> */}
                 <div style={{ height: '500px', paddingTop: '60px' }}>
-                <DataTable
-                    pagination
-                    highlightOnHover
-                    columns={newColumns}
-                    data={this.state.data}
-                    defaultSortField="Cinema Name"
-                    sortIcon={<SortIcon />}
-                    // customStyles={customStyles}
-                    selectableRows
-                    // onSelectedRowsChange={({ selectedRows }) => {
-                    //     console.log(selectedRows);
-                    //     this.setState({rows: selectedRows});
-                    //     console.log("State data: ", this.state.rows);
-                    // }}
-                    onSelectedRowsChange={this.handleChange.bind(this)}
-                />
+                    <DataTable
+                        pagination
+                        highlightOnHover
+                        columns={newColumns}
+                        data={this.state.data}
+                        defaultSortField="Cinema Name"
+                        sortIcon={<SortIcon />}
+                        // customStyles={customStyles}
+                        selectableRows
+                        // onSelectedRowsChange={({ selectedRows }) => {
+                        //     console.log(selectedRows);
+                        //     this.setState({rows: selectedRows});
+                        //     console.log("State data: ", this.state.rows);
+                        // }}
+                        onSelectedRowsChange={this.handleChange.bind(this)}
+                    />
                 </div>
-                
                 <button class="btn btn-primary btn-lg text-white" style={{ width: '100px', height: '50px', marginTop: '160px' }} type="button" onClick={this.handleSubmit.bind(this)}>Submit</button>
             </div>
         );

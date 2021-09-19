@@ -157,106 +157,31 @@ export default class BarChart extends React.Component {
                 skipNull: true
             }
         });
-
-        // const newData = [{ x: 'Jan', net: 100, cogs: 50, gm: 50 }, { x: 'Feb', net: 120, cogs: 55, gm: 75 }];
-        // var chart = document.getElementById("barChart2");
-        // var newChart = new Chart(chart, {
-        //     type: 'bar',
-        //     data: {
-        //         labels: ['Jan', 'Feb', 'March', 'April', 'May', 'Jun'],
-        //         datasets: [{
-        //             label: 'Net sales',
-        //             data: newData,
-        //             parsing: {
-        //                 yAxisKey: 'net'
-        //             },
-        //             backgroundColor: [
-        //                 'rgba(255, 99, 132, 0.2)',
-        //             ],
-        //             borderColor: [
-        //                 'rgba(255, 99, 132, 1)',
-        //             ],
-        //             borderWidth: 1
-        //         }, {
-        //             label: 'Cost of goods sold',
-        //             data: newData,
-        //             parsing: {
-        //                 yAxisKey: 'cogs'
-        //             },
-        //             backgroundColor: [
-        //                 'rgba(255, 159, 64, 0.2)'
-        //             ],
-        //             borderColor: [
-        //                 'rgba(255, 159, 64, 1)'
-        //             ],
-        //             borderWidth: 1
-        //         },
-        //             {
-        //                 label: 'Gross margin',
-        //                 data: newData,
-        //                 parsing: {
-        //                     yAxisKey: 'gm'
-        //                 },
-        //                 backgroundColor: [
-
-        //                     'rgba(255, 206, 86, 0.2)',
-
-        //                 ],
-        //                 borderColor: [
-
-        //                     'rgba(255, 206, 86, 1)',
-        //                 ],
-        //                 borderWidth: 1
-        //             }
-        //         ]
-        //     },
-        //     options: {
-        //         scales: {
-        //             y: {
-        //                 beginAtZero: true
-        //             }
-        //         },
-        //         skipNull: true
-        //     }
-        // })
     }
 
     componentDidMount() {
         this.fetchCinema()
-        const fetchUrl = "http://ec2-54-255-149-72.ap-southeast-1.compute.amazonaws.com/records"
-        const url = "https://api.publicapis.org/entries"
-
     }
 
     render() {
         return (
             <div class="container">
-                {/* <div class="column">
-                    <div class="cards-list">
-                        <div class="card 1">
-                            <div class="card-image">
-                                <canvas id="barChart1" width="400px" height="400px"></canvas>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="column">
+                    <h1 class='heading' style={{ fontSize: 50, color: '#d7dce0' }}><u>Description:</u></h1>
+                    <p class='paragraph' style={{ fontSize: 50, color: '#d7dce0'}}>
+                        Total sale of each cinema in a year
+                    </p>
                 </div>
                 <div class="column">
                     <div class="cards-list">
-                        <div class="card 1">
+                        <div class="card 1" style={{ width: "600px", height: "400px" }}>
                             <div class="card-image">
-                                <canvas id="barChart2" width="400px" height="400px"></canvas>
+                                <canvas id="barChart1" width="600px" height="400px"></canvas>
                             </div>
                         </div>
                     </div>
-                </div> */}
-                <div class="cards-list">
-                    <div class="card 1" style={{width: "600px", height: "400px"}}>
-                        <div class="card-image">
-                            <canvas id="barChart1" width="600px" height="400px"></canvas>
-                        </div>
-                    </div>
                 </div>
+
             </div>
         )
     }
